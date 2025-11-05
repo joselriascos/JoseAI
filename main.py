@@ -7,7 +7,7 @@ import time
 # Variables de entorno
 TELEGRAM_TOKEN = config("TELEGRAM_TOKEN")
 COHERE_API_KEY = config("MODEL_API_KEY")
-PORT = config("PORT", cast=int)
+PORT = config("PORT", cast=int, default=5000)
 PROMPT = config("PROMPT")
 
 
@@ -21,6 +21,11 @@ def receive_update():
     json_str = request.get_data().decode("UTF-8")
     update = telebot.types.Update.de_json(json_str)
     bot.process_new_updates([update])
+    return "OK", 200
+
+
+# Ruta hacer ping de chequeo -> evita que se duerma el servicio web por inactividad
+def check_health():
     return "OK", 200
 
 
