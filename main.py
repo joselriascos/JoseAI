@@ -25,6 +25,7 @@ def receive_update():
 
 
 # Ruta hacer ping de chequeo -> evita que se duerma el servicio web por inactividad
+@app.route("/", methods=["GET"])
 def check_health():
     return "OK", 200
 
